@@ -1,10 +1,10 @@
-# drolo-docs
+# drolo-mcp-docs
 
 Go MCP server for PDF document access. Serves PDFs from ~/.drolo/documents/.
 
 ## Quick Start
 make build
-echo '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' | ./drolo-docs
+echo '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' | ./drolo-mcp-docs
 
 ## Install
 make install

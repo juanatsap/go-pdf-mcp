@@ -1,4 +1,4 @@
-module github.com/juanatsap/drolo-docs
+module github.com/juanatsap/drolo-mcp-docs
 
 go 1.25.5
 

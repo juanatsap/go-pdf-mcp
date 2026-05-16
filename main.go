@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/juanatsap/drolo-docs/internal/pdf"
+	"github.com/juanatsap/drolo-mcp-docs/internal/pdf"
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
 )
