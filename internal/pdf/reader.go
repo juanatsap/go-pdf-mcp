@@ -1396,6 +1396,135 @@ func detectTableRow(line string) []string {
 	return nil
 }
 
+// ConvertToMarkdown converts a document to clean Markdown format.
+// For .md files, returns raw content. For .txt/.csv, wraps in code blocks.
+// For .pdf, extracts text and formats headings. Other formats return raw text with a header.
+func (r *Reader) ConvertToMarkdown(filename string) (string, error) {
+	safe, err := r.sanitizeFilename(filename)
+	if err != nil {
+		return "", err
+	}
+
+	path := r.fullPath(safe)
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		return "", fmt.Errorf("document not found: %s", safe)
+	}
+
+	ext := strings.ToLower(filepath.Ext(safe))
+
+	switch ext {
+	case ".md":
+		data, err := os.ReadFile(path)
+		if err != nil {
+			return "", fmt.Errorf("failed to read file: %w", err)
+		}
+		return string(data), nil
+
+	case ".txt":
+		data, err := os.ReadFile(path)
+		if err != nil {
+			return "", fmt.Errorf("failed to read file: %w", err)
+		}
+		return fmt.Sprintf("```text\n%s\n```", string(data)), nil
+
+	case ".csv":
+		data, err := os.ReadFile(path)
+		if err != nil {
+			return "", fmt.Errorf("failed to read file: %w", err)
+		}
+		return fmt.Sprintf("```csv\n%s\n```", string(data)), nil
+
+	case ".pdf":
+		text, err := r.extractFull(safe, path)
+		if err != nil {
+			return "", err
+		}
+		return r.pdfTextToMarkdown(text), nil
+
+	default:
+		// Other supported formats (e.g. .docx): return raw text with a header
+		text, err := r.ReadDocument(filename, 0)
+		if err != nil {
+			return "", err
+		}
+		return fmt.Sprintf("# %s\n\n> Converted from %s format\n\n%s", safe, ext, text), nil
+	}
+}
+
+// pdfTextToMarkdown converts extracted PDF text to Markdown with heading detection.
+func (r *Reader) pdfTextToMarkdown(text string) string {
+	lines := strings.Split(text, "\n")
+	var result []string
+	pageNum := 1
+
+	for i, line := range lines {
+		// Track page breaks
+		if strings.Contains(line, "\f") {
+			pageNum++
+			// Replace form feed with a horizontal rule
+			cleaned := strings.ReplaceAll(line, "\f", "")
+			if strings.TrimSpace(cleaned) != "" {
+				result = append(result, "\n---\n")
+				result = append(result, cleaned)
+			} else {
+				result = append(result, "\n---\n")
+			}
+			_ = pageNum
+			continue
+		}
+
+		trimmed := strings.TrimSpace(line)
+
+		// Empty lines become paragraph breaks
+		if trimmed == "" {
+			result = append(result, "")
+			continue
+		}
+
+		// Detect headings: ALL-CAPS lines (short, with letters)
+		if len(trimmed) < 60 && len(trimmed) > 3 && trimmed == strings.ToUpper(trimmed) {
+			hasLetter := false
+			for _, ch := range trimmed {
+				if (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') {
+					hasLetter = true
+					break
+				}
+			}
+			if hasLetter {
+				result = append(result, fmt.Sprintf("## %s", trimmed))
+				continue
+			}
+		}
+
+		// Detect headings: short lines before blanks (not ending with punctuation)
+		followedByBlank := (i+1 < len(lines) && strings.TrimSpace(lines[i+1]) == "")
+		if followedByBlank && len(trimmed) < 60 && len(trimmed) > 2 {
+			if !strings.HasSuffix(trimmed, ".") && !strings.HasSuffix(trimmed, ",") && !strings.HasSuffix(trimmed, ";") {
+				// Check for numbered heading patterns
+				if matched := matchNumberedHeading(trimmed); matched > 0 {
+					prefix := "##"
+					if matched >= 2 {
+						prefix = "###"
+					}
+					if matched >= 3 {
+						prefix = "####"
+					}
+					result = append(result, fmt.Sprintf("%s %s", prefix, trimmed))
+					continue
+				}
+				// Generic short heading
+				result = append(result, fmt.Sprintf("## %s", trimmed))
+				continue
+			}
+		}
+
+		// Regular line
+		result = append(result, trimmed)
+	}
+
+	return strings.Join(result, "\n")
+}
+
 // splitMultiSpace splits a line by runs of 3+ spaces.
 func splitMultiSpace(line string) []string {
 	var parts []string
