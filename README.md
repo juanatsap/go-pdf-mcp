@@ -10,8 +10,6 @@
   <a href="https://glama.ai/mcp/servers/drolosoft/go-docs-mcp"><img src="https://glama.ai/mcp/servers/drolosoft/go-docs-mcp/badges/card.svg" alt="go-docs-mcp card"></a>
   <a href="https://github.com/drolosoft/go-docs-mcp/releases"><img src="https://img.shields.io/github/v/release/drolosoft/go-docs-mcp" alt="GitHub Release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
-  <img src="https://img.shields.io/badge/macOS-000000?logo=apple&logoColor=white" alt="macOS">
-  <img src="https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black" alt="Linux">
 </p>
 
 > **Install and Go.** One command, single binary. Your AI reads any document — PDF, text, Markdown, DOCX, images.
