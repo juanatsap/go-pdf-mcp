@@ -464,7 +464,7 @@ go-docs-mcp/
 
 ---
 
-## 🏅 Glama
+## 🦙 Glama Score
 
 <p align="center">
   <a href="https://glama.ai/mcp/servers/drolosoft/go-docs-mcp"><img src="https://glama.ai/mcp/servers/drolosoft/go-docs-mcp/badges/card.svg" alt="Go-Docs MCP on Glama"></a>
