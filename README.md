@@ -13,10 +13,6 @@
 
 > **Install and Go.** One command, single binary. Your AI reads any document — PDF, text, Markdown, DOCX, images.
 
-<p align="center">
-  <a href="https://glama.ai/mcp/servers/drolosoft/go-docs-mcp"><img src="https://glama.ai/mcp/servers/drolosoft/go-docs-mcp/badges/card.svg" alt="go-docs-mcp on Glama"></a>
-</p>
-
 MCP server for multi-format document access — read, search, extract images, OCR, and fetch documents from URLs via the [Model Context Protocol](https://modelcontextprotocol.io). 13 tools, 6 formats, zero configuration.
 
 ```bash
@@ -465,6 +461,14 @@ go-docs-mcp/
   Makefile             # Build targets
   go.mod               # Module definition
 ```
+
+---
+
+## 🏅 Glama
+
+<p align="center">
+  <a href="https://glama.ai/mcp/servers/drolosoft/go-docs-mcp"><img src="https://glama.ai/mcp/servers/drolosoft/go-docs-mcp/badges/card.svg" alt="Go-Docs MCP on Glama"></a>
+</p>
 
 ---
 
