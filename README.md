@@ -7,12 +7,15 @@
 <p align="center">
   <a href="https://go.dev"><img src="https://img.shields.io/badge/Go-1.25+-00ADD8?style=flat&logo=go&logoColor=white" alt="Go"></a>
   <a href="https://glama.ai/mcp/servers/drolosoft/go-docs-mcp"><img src="https://glama.ai/mcp/servers/drolosoft/go-docs-mcp/badges/score.svg" alt="go-docs-mcp MCP server"></a>
-  <a href="https://glama.ai/mcp/servers/drolosoft/go-docs-mcp"><img src="https://glama.ai/mcp/servers/drolosoft/go-docs-mcp/badges/card.svg" alt="go-docs-mcp card"></a>
   <a href="https://github.com/drolosoft/go-docs-mcp/releases"><img src="https://img.shields.io/github/v/release/drolosoft/go-docs-mcp" alt="GitHub Release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
 </p>
 
 > **Install and Go.** One command, single binary. Your AI reads any document — PDF, text, Markdown, DOCX, images.
+
+<p align="center">
+  <a href="https://glama.ai/mcp/servers/drolosoft/go-docs-mcp"><img src="https://glama.ai/mcp/servers/drolosoft/go-docs-mcp/badges/card.svg" alt="go-docs-mcp on Glama"></a>
+</p>
 
 MCP server for multi-format document access — read, search, extract images, OCR, and fetch documents from URLs via the [Model Context Protocol](https://modelcontextprotocol.io). 13 tools, 6 formats, zero configuration.
 
